@@ -65,3 +65,45 @@ export function clearAllProofs() {
     return false
   }
 }
+
+// Update proof with on-chain data
+export function updateProofOnChain(proofId, onChainData) {
+  if (typeof window === 'undefined') return false
+  try {
+    const proofs = getSavedProofs()
+    const index = proofs.findIndex(p => p.proofId === proofId)
+    if (index >= 0) {
+      proofs[index] = {
+        ...proofs[index],
+        onChain: onChainData
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(proofs))
+      return true
+    }
+    return false
+  } catch (err) {
+    console.error('Failed to update proof on-chain data:', err)
+    return false
+  }
+}
+
+// Update proof with NFT data
+export function updateProofNFT(proofId, nftData) {
+  if (typeof window === 'undefined') return false
+  try {
+    const proofs = getSavedProofs()
+    const index = proofs.findIndex(p => p.proofId === proofId)
+    if (index >= 0) {
+      proofs[index] = {
+        ...proofs[index],
+        nft: nftData
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(proofs))
+      return true
+    }
+    return false
+  } catch (err) {
+    console.error('Failed to update proof NFT data:', err)
+    return false
+  }
+}

@@ -1,4 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom'
+import WalletButton from './WalletButton'
 import './Layout.css'
 
 function Layout() {
@@ -48,6 +49,7 @@ function Layout() {
           </nav>
 
           <div className="header-right">
+            <WalletButton />
             <a
               href="https://builtattic.com"
               target="_blank"

@@ -1,0 +1,9 @@
+{
+  "network": "polygonAmoy",
+  "chainId": 80002,
+  "contracts": {
+    "ProofRegistry": "",
+    "ProofNFT": ""
+  },
+  "_comment": "Contract addresses are loaded from environment variables VITE_PROOF_REGISTRY_ADDRESS and VITE_PROOF_NFT_ADDRESS. This file is a fallback for local development."
+}

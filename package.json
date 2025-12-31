@@ -7,13 +7,22 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup": "npm install && cd contracts && npm install",
+    "start": "npm run setup && npm run dev",
+    "contracts:compile": "cd contracts && npx hardhat compile",
+    "contracts:deploy:local": "cd contracts && npx hardhat run scripts/deploy.js --network hardhat",
+    "contracts:deploy:amoy": "cd contracts && npx hardhat run scripts/deploy.js --network polygonAmoy"
   },
   "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.1.2",
+    "@tanstack/react-query": "^5.28.4",
     "@web3-storage/w3up-client": "^17.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "viem": "^2.21.0",
+    "wagmi": "^2.12.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

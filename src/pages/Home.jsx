@@ -8,8 +8,10 @@ import {
   setDemoMode,
   isRegistered
 } from '../lib/web3storage'
-import { saveProof, getSavedProofs } from '../lib/proofStorage'
+import { saveProof, getSavedProofs, updateProofOnChain } from '../lib/proofStorage'
 import RegisterModal from '../components/RegisterModal'
+import RegisterOnChainButton from '../components/RegisterOnChainButton'
+import MintNFTModal from '../components/MintNFTModal'
 import './Home.css'
 
 // SHA-256 hash function
@@ -54,6 +56,7 @@ function Home() {
   const [demoMode, setDemoModeState] = useState(true)
   const [recentProofs, setRecentProofs] = useState([])
   const [showRegisterModal, setShowRegisterModal] = useState(false)
+  const [showMintModal, setShowMintModal] = useState(false)
   const [registered, setRegistered] = useState(false)
   const fileInputRef = useRef(null)
 
@@ -186,6 +189,43 @@ function Home() {
     setProof(null)
     setError(null)
     setUploadProgress(0)
+  }
+
+  const handleOnChainRegistered = (data) => {
+    if (proof) {
+      const updatedProof = {
+        ...proof,
+        onChain: {
+          registered: true,
+          txHash: data.txHash,
+          blockNumber: data.blockNumber,
+          isSimulated: data.isSimulated,
+          registeredAt: new Date().toISOString()
+        }
+      }
+      setProof(updatedProof)
+      updateProofOnChain(proof.proofId, updatedProof.onChain)
+      setRecentProofs(getSavedProofs().slice(0, 3))
+    }
+  }
+
+  const handleNFTMinted = (data) => {
+    if (proof) {
+      const updatedProof = {
+        ...proof,
+        nft: {
+          minted: true,
+          txHash: data.txHash,
+          tokenId: data.tokenId,
+          isSimulated: data.isSimulated,
+          mintedAt: new Date().toISOString()
+        }
+      }
+      setProof(updatedProof)
+      saveProof(updatedProof)
+      setRecentProofs(getSavedProofs().slice(0, 3))
+    }
+    setShowMintModal(false)
   }
 
   return (
@@ -458,6 +498,26 @@ function Home() {
                 </div>
               </div>
 
+              {/* Blockchain Actions */}
+              <div className="blockchain-actions">
+                <RegisterOnChainButton
+                  proof={proof}
+                  onRegistered={handleOnChainRegistered}
+                />
+                <button
+                  className="btn btn-mint"
+                  onClick={() => setShowMintModal(true)}
+                  disabled={proof?.nft?.minted}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {proof?.nft?.minted ? 'NFT Minted' : 'Mint NFT'}
+                </button>
+              </div>
+
               <div className="proof-actions">
                 <button className="btn btn-primary" onClick={downloadProofJSON}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -522,6 +582,14 @@ function Home() {
         isOpen={showRegisterModal}
         onClose={() => setShowRegisterModal(false)}
         onRegistered={handleRegistered}
+      />
+
+      {/* Mint NFT Modal */}
+      <MintNFTModal
+        proof={proof}
+        isOpen={showMintModal}
+        onClose={() => setShowMintModal(false)}
+        onMinted={handleNFTMinted}
       />
     </div>
   )

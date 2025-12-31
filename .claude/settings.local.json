@@ -8,7 +8,11 @@
       "Bash(git init:*)",
       "Bash(git remote add:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: ProofVault - Decentralized file certification on Filecoin\n\nFeatures:\n- File upload and proof generation with SHA-256 hashing\n- Filecoin/IPFS storage via Storacha \\(Web3.Storage\\)\n- Demo mode for testing without registration\n- Proof verification and file download\n- Black/green theme with animations\n- Builtattic branding\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: ProofVault - Decentralized file certification on Filecoin\n\nFeatures:\n- File upload and proof generation with SHA-256 hashing\n- Filecoin/IPFS storage via Storacha \\(Web3.Storage\\)\n- Demo mode for testing without registration\n- Proof verification and file download\n- Black/green theme with animations\n- Builtattic branding\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(npm start)",
+      "Bash(npm run build:*)"
     ]
   }
 }

@@ -8,6 +8,19 @@ export default defineConfig({
     open: true
   },
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          wagmi: ['wagmi', 'viem', '@rainbow-me/rainbowkit'],
+        }
+      }
+    }
+  },
+  define: {
+    'process.env': {}
   }
 })

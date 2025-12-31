@@ -1,13 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { WagmiProvider } from 'wagmi'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
+import { wagmiConfig } from './lib/wagmiConfig'
 import App from './App'
 import './styles/index.css'
+import '@rainbow-me/rainbowkit/styles.css'
+
+const queryClient = new QueryClient()
+
+// Custom RainbowKit theme to match ProofVault
+const proofVaultTheme = darkTheme({
+  accentColor: '#00ff88',
+  accentColorForeground: '#000',
+  borderRadius: 'medium',
+  fontStack: 'system',
+  overlayBlur: 'small',
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={proofVaultTheme} modalSize="compact">
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>
 )
