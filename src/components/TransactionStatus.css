@@ -1,8 +1,9 @@
 .tx-status-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,125 +12,110 @@
 }
 
 .tx-status-modal {
-  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-  border: 1px solid rgba(0, 255, 136, 0.2);
-  border-radius: 16px;
-  padding: 2rem;
-  max-width: 400px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  max-width: 380px;
   width: 90%;
   text-align: center;
-  animation: slideUp 0.3s ease-out;
+  animation: fadeInScale 0.3s ease-out;
 }
 
 .tx-spinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid rgba(0, 255, 136, 0.2);
-  border-top-color: #00ff88;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-primary);
   border-radius: 50%;
-  margin: 0 auto 1.5rem;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+  margin: 0 auto 1.25rem;
+  animation: spin 0.6s linear infinite;
 }
 
 .tx-status-modal h3 {
-  font-size: 1.25rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.375rem;
 }
 
 .tx-status-modal p {
-  color: #888;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  margin-bottom: 0.875rem;
 }
 
 .tx-hash {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 0.75rem;
-  font-family: monospace;
-  font-size: 0.8rem;
-  color: #aaa;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 0.875rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
 }
 
 .tx-hash a {
-  color: #00ff88;
+  color: var(--accent-primary);
   text-decoration: none;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  transition: color var(--transition-fast);
 }
 
 .tx-hash a:hover {
-  text-decoration: underline;
+  color: var(--accent-secondary);
 }
 
 .tx-success-icon {
-  color: #00ff88;
-  margin-bottom: 1rem;
+  color: var(--success);
+  margin-bottom: 0.875rem;
 }
 
 .tx-error-icon {
-  color: #ff4757;
-  margin-bottom: 1rem;
+  color: var(--error);
+  margin-bottom: 0.875rem;
 }
 
 .tx-error-message {
-  color: #ff4757 !important;
-  background: rgba(255, 71, 87, 0.1);
-  border: 1px solid rgba(255, 71, 87, 0.3);
-  border-radius: 8px;
-  padding: 0.75rem;
-  font-size: 0.85rem;
+  color: var(--error) !important;
+  background: var(--error-bg);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8125rem;
 }
 
 .tx-close-btn {
-  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  background: var(--accent-primary);
   color: #000;
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 2rem;
+  border-radius: var(--radius-md);
+  padding: 0.625rem 1.75rem;
   font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 0.875rem;
+  transition: all var(--transition-base);
 }
 
 .tx-close-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+  background: var(--accent-secondary);
+  transform: translateY(-1px);
 }
 
 .simulated-badge {
   display: inline-block;
-  background: rgba(99, 102, 241, 0.2);
-  color: #818cf8;
-  font-size: 0.7rem;
-  padding: 0.25rem 0.5rem;
+  background: var(--info-bg);
+  color: var(--info);
+  font-size: 0.625rem;
+  padding: 0.1875rem 0.4375rem;
   border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-bottom: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }

@@ -34,7 +34,19 @@ function Layout() {
                 <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Create Proof
+              Create
+            </NavLink>
+            <NavLink
+              to="/batch"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="14" y="3" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="3" y="14" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="14" y="14" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+              Batch
             </NavLink>
             <NavLink
               to="/verify"
@@ -45,6 +57,28 @@ function Layout() {
                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
               </svg>
               Verify
+            </NavLink>
+            <NavLink
+              to="/explorer"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/>
+                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              Explorer
+            </NavLink>
+            <NavLink
+              to="/compare"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M16 3H19C20.1046 3 21 3.89543 21 5V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M8 21H5C3.89543 21 3 20.1046 3 19V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M16 21H19C20.1046 21 21 20.1046 21 19V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              Compare
             </NavLink>
           </nav>
 

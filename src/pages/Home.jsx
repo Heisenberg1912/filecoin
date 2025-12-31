@@ -9,6 +9,7 @@ import {
   isRegistered
 } from '../lib/web3storage'
 import { saveProof, getSavedProofs, updateProofOnChain } from '../lib/proofStorage'
+import { generateQRCode, downloadPDFCertificate, generateTwitterShareURL } from '../lib/proofUtils'
 import RegisterModal from '../components/RegisterModal'
 import RegisterOnChainButton from '../components/RegisterOnChainButton'
 import MintNFTModal from '../components/MintNFTModal'
@@ -58,6 +59,7 @@ function Home() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
   const [registered, setRegistered] = useState(false)
+  const [qrCode, setQrCode] = useState(null)
   const fileInputRef = useRef(null)
 
   useEffect(() => {
@@ -153,6 +155,14 @@ function Home() {
       saveProof(proofData)
       setRecentProofs(getSavedProofs().slice(0, 3))
 
+      // Generate QR code
+      const qr = await generateQRCode(JSON.stringify({
+        proofId: proofData.proofId,
+        hash: proofData.sha256Hash,
+        cid: proofData.cid
+      }))
+      setQrCode(qr)
+
     } catch (err) {
       setError(err.message || 'Failed to generate proof')
       if (isDemoMode()) {
@@ -189,6 +199,7 @@ function Home() {
     setProof(null)
     setError(null)
     setUploadProgress(0)
+    setQrCode(null)
   }
 
   const handleOnChainRegistered = (data) => {
@@ -496,6 +507,14 @@ function Home() {
                     Filecoin Explorer
                   </a>
                 </div>
+
+                {/* QR Code */}
+                {qrCode && (
+                  <div className="qr-section">
+                    <img src={qrCode} alt="QR Code" className="qr-code" />
+                    <span>Scan to verify</span>
+                  </div>
+                )}
               </div>
 
               {/* Blockchain Actions */}
@@ -525,7 +544,23 @@ function Home() {
                     <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
-                  Download Proof
+                  JSON
+                </button>
+                <button className="btn btn-pdf" onClick={() => downloadPDFCertificate(proof)}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2"/>
+                  </svg>
+                  PDF
+                </button>
+                <button
+                  className="btn btn-twitter"
+                  onClick={() => window.open(generateTwitterShareURL(proof), '_blank')}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                  </svg>
+                  Share
                 </button>
                 <button className="btn btn-secondary" onClick={() => navigate('/verify')}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -535,7 +570,7 @@ function Home() {
                   Verify
                 </button>
                 <button className="btn btn-ghost" onClick={reset}>
-                  New Proof
+                  New
                 </button>
               </div>
             </div>
@@ -552,7 +587,53 @@ function Home() {
               </svg>
             </div>
             <h4>Immutable Proof</h4>
-            <p>Your file hash is stored permanently on Filecoin, creating an unalterable record.</p>
+            <p>SHA-256 hashes stored permanently on Filecoin via IPFS, creating unalterable records.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h4>NFT Certificates</h4>
+            <p>Mint your proof as an NFT with on-chain metadata. Own and trade your certificates.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="14" y="3" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="3" y="14" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+                <rect x="14" y="14" width="7" height="7" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            </div>
+            <h4>Batch Upload</h4>
+            <p>Certify multiple files at once. Perfect for bulk document authentication.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M7 7H10V10H7V7Z" fill="currentColor"/>
+                <path d="M14 7H17V10H14V7Z" fill="currentColor"/>
+                <path d="M7 14H10V17H7V14Z" fill="currentColor"/>
+                <path d="M14 14H17V17H14V14Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h4>QR Verification</h4>
+            <p>Generate scannable QR codes for instant mobile proof verification.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2"/>
+                <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            </div>
+            <h4>PDF Certificates</h4>
+            <p>Download professional PDF certificates with embedded QR codes and metadata.</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">
@@ -561,18 +642,8 @@ function Home() {
                 <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </div>
-            <h4>Trusted Timestamps</h4>
-            <p>Blockchain-verified timestamps prove exactly when your file existed.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-              </svg>
-            </div>
-            <h4>Easy Verification</h4>
-            <p>Anyone can independently verify your proof using the CID and hash.</p>
+            <h4>On-Chain Registry</h4>
+            <p>Register proofs on Polygon for additional tamper-proof blockchain verification.</p>
           </div>
         </section>
       </div>
