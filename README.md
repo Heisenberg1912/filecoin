@@ -46,15 +46,6 @@ vercel login
 vercel deploy --prod
 ```
 
-## 🔧 Environment Variables
-
-For production with real Filecoin storage, configure these:
-
-```env
-# Storacha/Web3.Storage credentials (optional for demo)
-NEXT_PUBLIC_W3UP_EMAIL=your-email@example.com
-W3UP_PROOF=your-delegation-proof
-```
 
 ## 🎯 How It Works
 
@@ -67,24 +58,7 @@ W3UP_PROOF=your-delegation-proof
    - Unix timestamp
    - Gateway & explorer links
 
-## 💰 Filecoin Grant Opportunity
 
-This project aligns with Filecoin Foundation's grant priorities:
-
-| Category | Alignment |
-|----------|-----------|
-| **Storage** | Drives real data onboarding to Filecoin |
-| **Developer Tooling** | SDK/API for proof generation |
-| **FVM Integration** | Smart contracts for on-chain verification |
-| **User Adoption** | Solves real problems for creators & businesses |
-
-### Grant Programs
-
-- **FIL Builder Next Step Grants**: $5K-$10K (Applications open through April 30, 2025)
-- **Open Grants**: Up to $50K
-- **ProPGF Batch 2**: Larger funding (Applications until December 23, 2025)
-
-Apply at: https://fil.org/grants
 
 ## 🛠 Tech Stack
 
@@ -93,9 +67,6 @@ Apply at: https://fil.org/grants
 - **Storage**: Web3.Storage / Storacha
 - **Hashing**: Web Crypto API
 
-## 📄 License
-
-Dual licensed under MIT and Apache 2.0 (as required by Filecoin grants).
 
 ## 🤝 Contributing
 
