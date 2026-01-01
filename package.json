@@ -1,5 +1,6 @@
 {
   "name": "proofvault",
+  "license": "(MIT OR Apache-2.0)",
   "private": true,
   "version": "1.0.0",
   "type": "module",
