@@ -1,0 +1,355 @@
+/* Gateway Status Compact */
+.gateway-status-compact {
+  position: relative;
+}
+
+.gateway-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.gateway-indicator:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.gateway-indicator.healthy .indicator-dot {
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+}
+
+.gateway-indicator.unhealthy .indicator-dot {
+  background: #ff4444;
+  box-shadow: 0 0 6px #ff4444;
+}
+
+.gateway-indicator.loading .indicator-dot {
+  background: #ffaa00;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.gateway-indicator svg {
+  transition: transform 0.2s;
+}
+
+.gateway-indicator svg.rotated {
+  transform: rotate(180deg);
+}
+
+/* Gateway Dropdown */
+.gateway-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  width: 280px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.gateway-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.refresh-btn svg.spinning {
+  animation: spin 1s linear infinite;
+}
+
+.gateway-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.gateway-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.gateway-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gateway-item.selected {
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.gateway-item.offline {
+  opacity: 0.5;
+}
+
+.gateway-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.online {
+  background: #00ff88;
+}
+
+.status-dot.offline {
+  background: #ff4444;
+}
+
+.gateway-name {
+  font-size: 14px;
+  color: #fff;
+}
+
+.preferred-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+  border-radius: 4px;
+}
+
+.gateway-meta {
+  font-size: 12px;
+}
+
+.gateway-meta .latency {
+  color: #00ff88;
+}
+
+.gateway-meta .error {
+  color: #ff4444;
+}
+
+/* Full Gateway Status */
+.gateway-status {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.gateway-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.gateway-status-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-refresh:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.btn-refresh:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-refresh svg.spinning {
+  animation: spin 1s linear infinite;
+}
+
+.gateway-summary {
+  margin-bottom: 20px;
+}
+
+.summary-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.summary-badge.all-healthy {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+}
+
+.summary-badge.partial {
+  background: rgba(255, 170, 0, 0.1);
+  color: #ffaa00;
+}
+
+.summary-badge.all-down {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+}
+
+/* Gateway Grid */
+.gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.gateway-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gateway-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.gateway-card.preferred {
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.gateway-card.unhealthy {
+  opacity: 0.6;
+}
+
+.gateway-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-indicator.online {
+  background: #00ff88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.status-indicator.offline {
+  background: #ff4444;
+}
+
+.gateway-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+}
+
+.check-icon {
+  color: #00ff88;
+}
+
+.gateway-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gateway-type {
+  font-size: 12px;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.gateway-latency {
+  font-size: 13px;
+  color: #00ff88;
+  font-weight: 500;
+}
+
+.gateway-error {
+  font-size: 12px;
+  color: #ff4444;
+}
+
+.preferred-indicator {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

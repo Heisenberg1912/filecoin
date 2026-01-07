@@ -10,9 +10,11 @@ import {
 } from '../lib/web3storage'
 import { saveProof, getSavedProofs, updateProofOnChain } from '../lib/proofStorage'
 import { generateQRCode, downloadPDFCertificate, generateTwitterShareURL } from '../lib/proofUtils'
+import { triggerWebhook } from '../lib/webhooks'
 import RegisterModal from '../components/RegisterModal'
 import RegisterOnChainButton from '../components/RegisterOnChainButton'
 import MintNFTModal from '../components/MintNFTModal'
+import URLImport from '../components/URLImport'
 import './Home.css'
 
 // SHA-256 hash function
@@ -118,6 +120,12 @@ function Home() {
     }
   }
 
+  const handleURLFileLoaded = (loadedFile) => {
+    setFile(loadedFile)
+    setProof(null)
+    setError(null)
+  }
+
   const generateProof = async () => {
     if (!file) return
 
@@ -162,6 +170,9 @@ function Home() {
         cid: proofData.cid
       }))
       setQrCode(qr)
+
+      // Trigger webhook for proof creation
+      triggerWebhook('proof_created', proofData)
 
     } catch (err) {
       setError(err.message || 'Failed to generate proof')
@@ -217,6 +228,9 @@ function Home() {
       setProof(updatedProof)
       updateProofOnChain(proof.proofId, updatedProof.onChain)
       setRecentProofs(getSavedProofs().slice(0, 3))
+
+      // Trigger webhook for proof verification/registration
+      triggerWebhook('proof_verified', updatedProof)
     }
   }
 
@@ -235,6 +249,9 @@ function Home() {
       setProof(updatedProof)
       saveProof(updatedProof)
       setRecentProofs(getSavedProofs().slice(0, 3))
+
+      // Trigger webhook for NFT minting
+      triggerWebhook('nft_minted', updatedProof)
     }
     setShowMintModal(false)
   }
@@ -348,6 +365,9 @@ function Home() {
                   </div>
                 )}
               </div>
+
+              {/* URL Import */}
+              <URLImport onFileLoaded={handleURLFileLoaded} />
 
               {/* Progress */}
               {uploading && (

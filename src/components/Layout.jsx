@@ -1,5 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom'
 import WalletButton from './WalletButton'
+import GatewayStatus from './GatewayStatus'
 import './Layout.css'
 
 function Layout() {
@@ -69,20 +70,30 @@ function Layout() {
               Explorer
             </NavLink>
             <NavLink
-              to="/compare"
+              to="/analytics"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M16 3H19C20.1046 3 21 3.89543 21 5V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M8 21H5C3.89543 21 3 20.1046 3 19V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M16 21H19C20.1046 21 21 20.1046 21 19V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M18 20V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M12 20V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M6 20V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
-              Compare
+              Analytics
+            </NavLink>
+            <NavLink
+              to="/developer"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M16 18L22 12L16 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8 6L2 12L8 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Developer
             </NavLink>
           </nav>
 
           <div className="header-right">
+            <GatewayStatus compact />
             <WalletButton />
             <a
               href="https://builtattic.com"

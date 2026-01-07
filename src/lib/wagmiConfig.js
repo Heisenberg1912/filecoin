@@ -1,6 +1,6 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import { http, createConfig } from 'wagmi'
-import { polygonAmoy, polygon, hardhat } from 'wagmi/chains'
+import { polygonAmoy, polygon, hardhat, filecoinCalibration, filecoin } from 'wagmi/chains'
 
 // Custom simulated chain for testing without a wallet
 export const simulatedChain = {
@@ -20,14 +20,88 @@ export const simulatedChain = {
   testnet: true,
 }
 
+// Filecoin Calibration testnet config (if not available in wagmi)
+export const filecoinCalibrationChain = {
+  id: 314159,
+  name: 'Filecoin Calibration',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'testnet FIL',
+    symbol: 'tFIL',
+  },
+  rpcUrls: {
+    default: { http: ['https://api.calibration.node.glif.io/rpc/v1'] },
+    public: { http: ['https://api.calibration.node.glif.io/rpc/v1'] },
+  },
+  blockExplorers: {
+    default: { name: 'Filfox', url: 'https://calibration.filfox.info' },
+    filscan: { name: 'Filscan', url: 'https://calibration.filscan.io' },
+  },
+  testnet: true,
+}
+
+// Filecoin mainnet config (if not available in wagmi)
+export const filecoinMainnetChain = {
+  id: 314,
+  name: 'Filecoin',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'FIL',
+    symbol: 'FIL',
+  },
+  rpcUrls: {
+    default: { http: ['https://api.node.glif.io/rpc/v1'] },
+    public: { http: ['https://api.node.glif.io/rpc/v1'] },
+  },
+  blockExplorers: {
+    default: { name: 'Filfox', url: 'https://filfox.info' },
+    filscan: { name: 'Filscan', url: 'https://filscan.io' },
+  },
+  testnet: false,
+}
+
+// Available networks for UI
+export const NETWORKS = {
+  polygon: {
+    id: polygon.id,
+    name: 'Polygon',
+    icon: 'polygon',
+    testnet: false,
+    category: 'L2'
+  },
+  polygonAmoy: {
+    id: polygonAmoy.id,
+    name: 'Polygon Amoy',
+    icon: 'polygon',
+    testnet: true,
+    category: 'L2'
+  },
+  filecoinCalibration: {
+    id: 314159,
+    name: 'Filecoin Calibration',
+    icon: 'filecoin',
+    testnet: true,
+    category: 'FVM'
+  },
+  filecoin: {
+    id: 314,
+    name: 'Filecoin',
+    icon: 'filecoin',
+    testnet: false,
+    category: 'FVM'
+  }
+}
+
 // RainbowKit config for real wallet connections
 export const wagmiConfig = getDefaultConfig({
   appName: 'ProofVault',
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'demo',
-  chains: [polygonAmoy, polygon],
+  chains: [polygonAmoy, polygon, filecoinCalibrationChain, filecoinMainnetChain],
   transports: {
     [polygonAmoy.id]: http(),
     [polygon.id]: http(),
+    [filecoinCalibrationChain.id]: http('https://api.calibration.node.glif.io/rpc/v1'),
+    [filecoinMainnetChain.id]: http('https://api.node.glif.io/rpc/v1'),
   },
 })
 
