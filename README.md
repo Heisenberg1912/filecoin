@@ -1,13 +1,23 @@
-# ProofVault 🔐
+# ProofVault
 
-**Decentralized File Certification & Timestamping on Filecoin**
+**Decentralized file certification and timestamping using IPFS and Filecoin**
 
-Upload any file to get a cryptographic proof certificate with timestamps stored permanently on the Filecoin network. Prove what you created and when.
+ProofVault lets you upload a file and generate a verifiable proof showing what the file was and when it existed. The proof is derived from a cryptographic hash and backed by content-addressed storage, making it suitable for verification, auditing, and long-term reference.
 
 ![ProofVault](https://img.shields.io/badge/Filecoin-Powered-00d4aa)
 ![License](https://img.shields.io/badge/License-MIT%20%26%20Apache%202.0-blue)
 
-## 🌟 Features
+## What it does
+
+- Computes a SHA-256 hash of a file locally
+- Uploads the file to IPFS / Filecoin storage
+- Generates a proof certificate containing:
+- File hash & Content ID (CID)
+- Timestamp
+- Reference links for verification
+- Allows the proof certificate to be downloaded as JSON
+
+## Features
 
 - **Cryptographic Proof**: SHA-256 hash of your file stored immutably
 - **IPFS Storage**: Content addressed storage via CID
@@ -15,7 +25,7 @@ Upload any file to get a cryptographic proof certificate with timestamps stored 
 - **Downloadable Certificates**: JSON proof certificates for verification
 - **Beautiful UI**: Modern, responsive design
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
@@ -32,7 +42,7 @@ npm run dev
 npm run build
 ```
 
-## 📦 Deploy to Vercel
+## Deployment on Vercel
 
 ### Option 1: One-Click Deploy
 
@@ -46,9 +56,9 @@ vercel login
 vercel deploy --prod
 ```
 
-## 🔧 Environment Variables
+## Environment Variables
 
-For production with real Filecoin storage, configure these:
+For production use with real Filecoin storage providers, the following environment variables are required:
 
 ```env
 # Storacha/Web3.Storage credentials (optional for demo)
@@ -56,7 +66,7 @@ NEXT_PUBLIC_W3UP_EMAIL=your-email@example.com
 W3UP_PROOF=your-delegation-proof
 ```
 
-## 🎯 How It Works
+## How It Works
 
 1. **Upload**: User drops or selects a file
 2. **Hash**: File is hashed locally using SHA-256
@@ -67,10 +77,9 @@ W3UP_PROOF=your-delegation-proof
    - Unix timestamp
    - Gateway & explorer links
 
-## 💰 Filecoin Grant Opportunity
+## Filecoin Grant Opportunity
 
 This project aligns with Filecoin Foundation's grant priorities:
-
 | Category | Alignment |
 |----------|-----------|
 | **Storage** | Drives real data onboarding to Filecoin |
@@ -78,8 +87,8 @@ This project aligns with Filecoin Foundation's grant priorities:
 | **FVM Integration** | Smart contracts for on-chain verification |
 | **User Adoption** | Solves real problems for creators & businesses |
 
-### Grant Programs
 
+### Grant Programs
 - **FIL Builder Next Step Grants**: $5K-$10K (Applications open through April 30, 2025)
 - **Open Grants**: Up to $50K
 - **ProPGF Batch 2**: Larger funding (Applications until December 23, 2025)
@@ -93,11 +102,11 @@ Apply at: https://fil.org/grants
 - **Storage**: Web3.Storage / Storacha
 - **Hashing**: Web Crypto API
 
-## 📄 License
+## License
 
 Dual licensed under MIT and Apache 2.0 (as required by Filecoin grants).
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please read our contributing guidelines first.
 
